@@ -1,53 +1,29 @@
-DED
-====================
+pug-rs
+---
 
-since i no longer work with rust, this crate is canceled as well.
-it is fairly simple anyway and if i ever work with pug/jade again, i'll probably reimplement it in zetz.
-
-
-pug (jade) templates
----------------------
-
-reimplemented in rust for performance reasons.
-
-| pug.js | pug-rs |
-|--------|--------|
-| 780ms  | 29ms   |
+*pug.js reimplemented in rust for speed*
 
 
-usage:
--------
-
+### Usage
 ```
-$ cargo install pug
-$ pug < thing.pug > thing.html
-```
-
-
-with webpack:
-------------
-
-
-pug_loader.js:
-```javascript
-const spawnSync = require('child_process').spawnSync;
-module.exports = function(source) {
-  var proc = spawnSync("pug", {
-    input: source
-  });
-  if (proc.status != 0) {
-    throw proc.error;
-  }
-  return proc.stdout.toString();
-}
-```
-
-```
-  module: {
-    rules: [
-      {
-        test: /\.pug$/,
-        use: [require.resolve('./pug_loader.js')]
-      },
-
+✗ git clone https://github.com/vitali2y/pug-rs && cd pug-rs
+✗ cargo b
+✗ cat ./assets/{index.pug,head.pug,foot.pug}
+//- index.pug
+doctype html
+html
+  include head.pug
+  body
+    h1 Index
+    include foot.pug
+//- head.pug
+head
+  title Head
+  script(src='/js/app.js')
+//- foot.pug
+footer#footer
+  p Footer
+✗ pug < assets/index.pug > ./index.html && cat ./index.html && open ./index.html
+<!DOCTYPE html><html><head><title>Head</title><script src='/js/app.js'></script></head><body><h1>Index</h1><footer id="footer"><p>Footer</p></footer></body></html>
+✗
 ```
